@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cashier - Food Stall Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<!-- POPUP KONFIRMASI BERSIHKAN KERANJANG -->
+<div id="clearCartModal" class="modal-overlay">
+  <div class="modal-box">
+    <h3>Bersihkan Keranjang?</h3>
+    <p>Semua item yang dipilih akan dihapus.</p>
+
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeClearCartModal()">Batal</button>
+      <button class="btn btn-danger" onclick="confirmClearCart()">Hapus</button>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="logoutModal">
+  <div class="modal-box">
+    <p>Keluar dari akun ini?</p>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="confirmLogout()">OK</button>
+      <button class="btn btn-secondary" onclick="closeLogoutModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="paymentErrorModal">
+  <div class="modal-box">
+    <h3>Uang Tidak Cukup</h3>
+    <p>Jumlah uang yang dibayarkan lebih kecil dari total harga.</p>
+
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="closePaymentError()">
+        OK
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<body>
+<div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <button class="toggle-sidebar" onclick="toggleSidebar()">☰</button>
+            <span class="toggle-sidebar">Angkringan Tiga Sedulur</span>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="stokPersediaan.html">Stok Persediaan</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pengelolaanMenu.html">Pengelolaan Menu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="kasir.html">Kasir</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="transaksi.html">Transaksi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="laporanKeuangan.html">Laporan Keuangan</a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header class="header">
+            <button class="toggle-side" onclick="toggleSidebar()">☰</button>
+            <h1 class="header-title">Kasir</h1>
+            <div class="header-actions">
+                <button class="btn btn-secondary logout-btn" onclick="openLogoutModal()">
+                Logout
+                </button>
+            </div>
+        </header>
+
+        <div class="content">
+    <!-- PILIH ITEM -->
+    <div class="card">
+    <div class="card-kasir">
+        <div class="card-title-pilih">Pilih Item</div>
+
+        <select 
+        class="category-select"
+        id="categorySelect"
+        onchange="filterMenu()"
+        >
+        <option value="" hidden disabled selected>Kategori</option>
+        <option value="makanan">Makanan</option>
+        <option value="minuman">Minuman</option>
+        </select>
+    </div>
+
+    <div class="menu-grid" id="menuGrid"></div>
+    </div>
+
+
+      
+      <!-- KERANJANG -->
+      <div class="card cart-section">
+        <div class="card-title">Keranjang Belanja</div>
+        <div id="cartItems"></div>
+      </div>
+       
+
+      <!-- RINGKASAN -->
+      <div class="card cart-summary">
+        <div class="card-title-2">Ringkasan Pembayaran</div>
+
+        <div class="form-group">
+            <label for="totalHarga">Total Harga:</label>
+            <input type="text" id="totalHarga" value="0" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="amountPaid">Jumlah Uang:</label>
+            <input
+              type="text"
+              id="amountPaid"
+              name="amount_paid"
+              oninput="formatAmountPaid(this)"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="kembalian">Kembalian:</label>
+            <input type="text" id="kembalian" readonly>
+        </div>
+
+<div class="action-label">Ubah:</div>
+
+<div class="action-buttons">
+    <button class="btn btn-success" onclick="showSuccess()">Berhasil</button>
+    <button class="btn btn-danger" onclick="openClearCartModal()">Batal</button>
+</div>
+
+
+<!-- POPUP PEMBAYARAN BERHASIL -->
+<div id="successOverlay" class="success-overlay">
+  <div class="success-card">
+    <div class="check-icon">✓</div>
+    <h2>Pembayaran Berhasil</h2>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+// Check authentication
+if (localStorage.getItem('loggedIn') !== 'true') {
+    window.location.href = 'login.html';
+}
+
+// Initialize cashier page
+if (localStorage.getItem('loggedIn') !== 'true') {
+  window.location.href = 'login.html';
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  renderMenuKasir(currentKategori); // tampilkan dengan kategori terakhir
+  renderCart();
+});
+</script>
+
+</body>
+</html>
