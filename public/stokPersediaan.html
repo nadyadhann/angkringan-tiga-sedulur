@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raw Materials - Food Stall Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<div class="modal-overlay" id="logoutModal">
+  <div class="modal-box">
+    <p>Keluar dari akun ini?</p>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="confirmLogout()">OK</button>
+      <button class="btn btn-secondary" onclick="closeLogoutModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<body>
+<div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <button class="toggle-sidebar" onclick="toggleSidebar()">☰</button>
+            <span class="toggle-sidebar">Angkringan Tiga Sedulur</span>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="stokPersediaan.html">Stok Persediaan</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pengelolaanMenu.html">Pengelolaan Menu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="kasir.html">Kasir</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="transaksi.html">Transaksi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="reports.html">Laporan Keuangan</a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header class="header">
+            <button class="toggle-side" onclick="toggleSidebar()">☰</button>
+            <h1 class="header-title">Stok Persediaan</h1>
+            <div class="header-actions">
+                <button class="btn btn-secondary logout-btn" onclick="openLogoutModal()">
+                Logout
+                </button>
+            </div>
+        </header>
+
+       <!-- CONTENT -->
+        <div class="content">
+
+            <!-- Menambah Stok -->
+            <div class="card">
+                <div class="card-title">Menambah Stok Persediaan</div>
+                <form id="stokForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nama">Nama Bahan *</label>
+                            <input type="text" id="nama" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="satuan">Satuan (kg, pcs) *</label>
+                            <input type="text" id="satuan" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="jumlah">Jumlah *</label>
+                            <input type="number" id="jumlah" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Harga *</label>
+                            <input type="number" id="harga" required>
+                        </div>
+                    </div>
+
+                    <button onclick="tambahPersediaan()" type="submit" class="btn btn-primary btn-small">Tambah</button>
+                </form>
+            </div>
+
+            <!-- Rincian Stok -->
+            <div class="card menu-card">
+            <div class="card-header">
+                <div class="card-stok">Rincian Stok Persediaan</div>
+            </div>
+
+            <div class="table-scroll">
+            <table class="menu-table">
+                <thead>
+                <tr>
+                    <th>Bahan</th>
+                    <th>Satuan</th>
+                    <th>Jumlah</th>
+                    <th>Harga Satuan</th>
+                    <th>Jumlah Harga</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="rincianTable"></tbody>
+            </table>
+            </div>
+        </div>
+            <!-- Persediaan -->
+            <div class="card">
+                <div class="card-title">Persediaan</div>
+                <div class="table-responsive">
+                    <table class="stok-table">
+                        <thead>
+                        <tr>
+                        <th>Bahan</th>
+                        <th>Satuan</th>
+                        <th>Jumlah</th>
+                        <th>Harga Satuan</th>
+                        <th>Jumlah Harga</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="persediaanTable">
+                            <!-- JS akan isi DI SINI -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+if (localStorage.getItem('loggedIn') !== 'true') {
+    window.location.href = 'login.html';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderRincianStok();
+  renderPersediaan();
+});
+</script>
+
+</body>
+</html>

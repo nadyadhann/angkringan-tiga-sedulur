@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Food Stall Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <button class="toggle-sidebar" onclick="toggleSidebar()">☰</button>
+            <span class="toggle-sidebar">Angkringan Tiga Sedulur</span>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="materials.html">Stok Persediaan</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">Pengelolaan Menu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="cashier.html">Kasir</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="transaksi.html">Transaksi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="reports.html">Laporan Keuangan</a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header class="header">
+            <button class="toggle-side" onclick="toggleSidebar()">☰</button>
+                <h1 class="header-title">Settings</h1>
+            <div class="header-actions">
+                <button class="btn btn-secondary logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Settings Section -->
+            <section class="section active">
+                <div class="center-text">
+                    <h1>Angkringan Van</h1>
+                    <p>Admin</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">Data Management</div>
+                    <div class="btn-group">
+                        <button class="btn btn-secondary" onclick="exportData()">Export Data (JSON)</button>
+                        <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">Import Data (JSON)</button>
+                        <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
+                        <button class="btn btn-danger" onclick="clearAllData()">Clear All Data</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+// Check authentication
+if (localStorage.getItem('loggedIn') !== 'true') {
+    window.location.href = 'login.html';
+}
+</script>
+</body>
+</html>

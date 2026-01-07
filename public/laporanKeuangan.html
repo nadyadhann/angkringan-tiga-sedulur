@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Food Stall Manager</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<div class="modal-overlay" id="logoutModal">
+  <div class="modal-box">
+    <p>Keluar dari akun ini?</p>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="confirmLogout()">OK</button>
+      <button class="btn btn-secondary" onclick="closeLogoutModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<body>
+<div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <button class="toggle-sidebar" onclick="toggleSidebar()">☰</button>
+            <span class="toggle-sidebar">Angkringan Tiga Sedulur</span>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="stokPersediaan.html">Stok Persediaan</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="pengelolaanMenu.html">Pengelolaan Menu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="kasir.html">Kasir</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="transaksi.html">Transaksi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="laporanKeuangan.html">Laporan Keuangan</a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header class="header">
+            <button class="toggle-side" onclick="toggleSidebar()">☰</button>
+            <h1 class="header-title">Laporan Keuangan</h1>
+            <div class="header-actions">
+                <button class="btn btn-secondary logout-btn" onclick="openLogoutModal()">
+                Logout
+                </button>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Reports Section -->
+            <section class="section active">
+                <div class="card">
+                    <div class="card-title">Ringkasan Penjualan</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reportPeriod">Periode Laporan *</label>
+                            <select id="reportPeriod" onchange="generateReport()">
+                                <option value="daily">Harian</option>
+                                <option value="weekly">Mingguan</option>
+                                <option value="monthly">Bulanan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reportDate">Pilih Tanggal *</label>
+                            <input type="date" id="reportDate" onchange="generateReport()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card income">
+                        <div class="stat-label">Total Pendapatan</div>
+                        <div class="stat-value" id="reportIncome">Rp.0</div>
+                    </div>
+                    <div class="stat-card expense">
+                        <div class="stat-label">Total Pengeluaran</div>
+                        <div class="stat-value" id="reportExpense">Rp.0</div>
+                    </div>
+                    <div class="stat-card profit">
+                        <div class="stat-label">Laba Bersih</div>
+                        <div class="stat-value" id="reportProfit">Rp.0</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Tren Pendapatan vs Pengeluaran</div>
+                    <div class="chart-container">
+                        <canvas id="reportChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Ringkasan Penjualan</div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nama Barang</th>
+                                    <th>Jumlah Terjual</th>
+                                    <th>Total Pendapatan</th>
+                                </tr>
+                            </thead>
+                            <tbody id="salesSummaryTable">
+                                <tr>
+                                    <td colspan="3" style="text-align: center; color: #7f8c8d;">Tidak ada data penjualan yang tersedia</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+// Check authentication
+if (localStorage.getItem('loggedIn') !== 'true') {
+    window.location.href = 'login.html';
+}
+
+// Initialize reports page
+document.addEventListener('DOMContentLoaded', function() {
+  setReportDate();
+  generateReport();
+
+});
+</script>
+</body>
+</html>
