@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/login', function () {
+Route::get('/auth/login', function () {
     return response()->file(public_path('login.html'));
 });
+
