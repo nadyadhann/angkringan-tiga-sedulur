@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 120vh;
+  height: 130vh;
   background: #E6BA5A;
 }
 
@@ -33,7 +33,7 @@
 
 .login-error {
   position: fixed;          /* keluar dari semua parent */
-  top: 65%;                 /* posisi di bawah login box */
+  top: 80%;                 /* posisi di bawah login box */
   left: 50%;
   transform: translateX(-50%);
   z-index: 2147483647;      /* pastikan di atas elemen lain */
