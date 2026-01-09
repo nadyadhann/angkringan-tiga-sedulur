@@ -15,7 +15,7 @@
 
     <div class="login-box">
         <h2>Angkringan Tiga Sedulur</h2>
-        <form onsubmit="login(event)">
+        <form>
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" placeholder="Enter username" required>
@@ -24,7 +24,9 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" placeholder="Enter password" required>
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary" onclick="login(event)">
+              Login
+            </button>
         </form>
     </div>
 
