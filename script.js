@@ -1220,7 +1220,7 @@ async function renderRecentTransaksi() {
 ===================================================== */
 function authGuard() {
   if (localStorage.getItem("loggedIn") !== "true") {
-    window.location.href = "login.html";
+    window.location.href = "index.html";
   }
 }
 
@@ -1255,7 +1255,7 @@ function confirmLogout() {
   localStorage.removeItem("token");
 
   // redirect
-  window.location.replace("login.html");
+  window.location.replace("index.html");
 }
 
 
