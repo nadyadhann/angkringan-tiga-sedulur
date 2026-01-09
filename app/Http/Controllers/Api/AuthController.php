@@ -11,10 +11,11 @@ use Illuminate\Support\Str;
 class AuthController extends Controller
 {
     public function login(Request $request)
-    {
-        $request->validate([
-            'username' => 'required',
-            'password' => 'required'
+{
+    return response()->json([
+        'request_all' => $request->all(),
+        'username' => $request->username,
+        'password' => $request->password,
         ]);
 
         // Cari user berdasarkan username
